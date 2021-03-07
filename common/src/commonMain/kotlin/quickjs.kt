@@ -3,6 +3,6 @@ object Quickjs {
 
   val rt by lazy { jsNewRuntime() }
   init {
-    System.load("jniquickjs")
+    jniLoadLibrary("jniquickjs")
   }
 }

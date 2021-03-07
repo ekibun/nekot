@@ -3,7 +3,7 @@
     {
       "name": "Linux",
       "includePath": [
-        "${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include"
+        "${JAVA_HOME}/include/**"
       ],
       "defines": [
         "_DEBUG",
@@ -12,8 +12,7 @@
       ],
       "windowsSdkVersion": "10.0.18362.0",
       "cStandard": "c11",
-      "cppStandard": "c++17",
-      "intelliSenseMode": "gcc-x64"
+      "cppStandard": "c++17"
     }
   ],
   "version": 4

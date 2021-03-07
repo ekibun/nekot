@@ -6,7 +6,6 @@ buildscript {
         // TODO: remove after new build is published
         maven("http://maven.aliyun.com/nexus/content/groups/public/")
         maven("http://maven.aliyun.com/nexus/content/repositories/jcenter")
-        mavenLocal()
         google()
         jcenter()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")

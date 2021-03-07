@@ -1,0 +1,1 @@
+expect fun jniLoadLibrary(name: String)
