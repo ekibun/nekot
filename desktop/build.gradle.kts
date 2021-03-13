@@ -31,10 +31,16 @@ kotlin {
         }
     }
     sourceSets {
-        named("jvmMain") {
+        val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation(project(":common"))
+            }
+        }
+        val jvmTest by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlin:kotlin-test")
+                implementation("org.jetbrains.kotlin:kotlin-test-junit")
             }
         }
     }

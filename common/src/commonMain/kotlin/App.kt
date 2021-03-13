@@ -7,7 +7,11 @@ import androidx.compose.runtime.*
 fun App() {
     var text by remember { mutableStateOf("Hello, World!") }
 
-    MaterialTheme { Button(onClick = { text = "Hello, ${Quickjs.rt}" }) { Text(text) } }
+    MaterialTheme {
+        Button(onClick = { text = "Hello ${Quickjs().evaluate("1+1", "<test>", 0)}" }) {
+            Text(text)
+        }
+    }
 }
 
 expect fun getPlatformName(): String

@@ -4,8 +4,8 @@ buildscript {
 
     repositories {
         // TODO: remove after new build is published
-        maven("http://maven.aliyun.com/nexus/content/groups/public/")
-        maven("http://maven.aliyun.com/nexus/content/repositories/jcenter")
+        maven("https://maven.aliyun.com/nexus/content/groups/public/")
+        maven("https://maven.aliyun.com/nexus/content/repositories/jcenter")
         google()
         jcenter()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
@@ -21,8 +21,8 @@ buildscript {
 
 allprojects {
     repositories {
-        maven("http://maven.aliyun.com/nexus/content/groups/public/")
-        maven("http://maven.aliyun.com/nexus/content/repositories/jcenter")
+        maven("https://maven.aliyun.com/nexus/content/groups/public/")
+        maven("https://maven.aliyun.com/nexus/content/repositories/jcenter")
         google()
         jcenter()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
