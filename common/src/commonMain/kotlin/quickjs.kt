@@ -43,7 +43,7 @@ class Quickjs {
   // val rt by lazy { jsNewRuntime() }
   companion object {
     init {
-      jniLoadLibrary("jniquickjs")
+      jniLoadLibrary("quickjs")
     }
   }
 }

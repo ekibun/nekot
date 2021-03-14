@@ -1,24 +1,16 @@
 cmake_minimum_required(VERSION 3.7 FATAL_ERROR)
-
 set(CMAKE_BUILD_TYPE "Release")
-
-project(jniquickjs LANGUAGES CXX)
+set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fPIC")
 
 IF (ANDROID)
-    find_library(log-lib log)
+  find_library(log-lib log)
 ELSE()
-    find_package(JNI REQUIRED)
-    include_directories(${JAVA_INCLUDE_PATH})
-    include_directories(${JAVA_INCLUDE_PATH2})
+  find_package(JNI REQUIRED)
+  include_directories(${JAVA_INCLUDE_PATH})
+  include_directories(${JAVA_INCLUDE_PATH2})
 ENDIF ()
+
+set(common-lib ${log-lib})
 
 include("${CMAKE_CURRENT_SOURCE_DIR}/quickjs.cmake")
-
-IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
-    target_compile_options(quickjs PRIVATE "-fPIC")
-ENDIF ()
-
-add_library(jniquickjs SHARED ${CXX_LIB_DIR}/jni.cpp)
-target_compile_features(jniquickjs PUBLIC cxx_std_17)
-target_link_libraries(jniquickjs PRIVATE quickjs ${log-lib})
-
+include("${CMAKE_CURRENT_SOURCE_DIR}/ffmpeg.cmake")
