@@ -1,18 +1,22 @@
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.text.input.TextFieldValue
 
 @Composable
 fun App() {
-  var text by remember { mutableStateOf("Hello, World!") }
+  var text by remember { mutableStateOf(TextFieldValue()) }
 
   MaterialTheme {
-    Button(
-        onClick = {
-          text =
-              "Hello ffmpeg: ${Ffmpeg().avformatAllocContext()} quickjs: ${Quickjs().evaluate("1+1", "<eval>", 0)}"
-        }) { Text(text) }
+    TextField(
+      value = text,
+      onValueChange = {
+        text = TextFieldValue(
+          Quickjs.INSTANCE.hightlight(it.text),
+          it.selection,
+          it.composition
+        )
+      }
+    )
   }
 }
 

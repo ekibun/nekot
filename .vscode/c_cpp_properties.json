@@ -3,8 +3,7 @@
     {
       "name": "Linux",
       "includePath": [
-        "${JAVA_HOME}/include/**",
-        "${workspaceRoot}/cxx/ffmpeg/**"
+        "${JAVA_HOME}/include/**"
       ],
       "defines": [
         "_DEBUG",

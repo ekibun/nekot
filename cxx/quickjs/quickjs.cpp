@@ -3,15 +3,90 @@
 
 extern "C"
 {
+  JNIEXPORT jlong JNICALL Java_QuickjsJni_getStringPtr(
+      JNIEnv *env,
+      jobject thiz,
+      jstring input)
+  {
+    return (jlong)env->GetStringUTFChars(input, 0);
+  }
 
-  JNIEXPORT jlong JNICALL Java_Quickjs_jsNewRuntime(
+  JNIEXPORT jlong JNICALL Java_QuickjsJni_jsParseInit(
+      JNIEnv *env,
+      jobject thiz,
+      jlong *ctx,
+      jlong input,
+      jint input_len)
+  {
+    return (jlong)JS_ParseInit(
+        (JSContext *)ctx,
+        (const char *)input,
+        input_len);
+  }
+
+  JNIEXPORT void JNICALL Java_QuickjsJni_jsParseEnd(
+      JNIEnv *env,
+      jobject thiz,
+      jlong *ctx,
+      jlong s)
+  {
+    JS_ParseEnd((JSContext *)ctx, (JSParseState *)s);
+  }
+
+  JNIEXPORT jint JNICALL Java_QuickjsJni_jsParseNextToken(
+      JNIEnv *env,
+      jobject thiz,
+      jlong *ctx,
+      jlong *s)
+  {
+    JSRuntime *rt = JS_GetRuntime((JSContext *)ctx);
+    uint8_t *stack_top = JS_SetStackTop(rt, 0);
+    jint ret = (jint)JS_ParseNextToken((JSParseState *)s);
+    JS_SetStackTop(rt, stack_top);
+    return ret;
+  }
+
+  JNIEXPORT jint JNICALL Java_QuickjsJni_jsParseTemplatePart(
+      JNIEnv *env,
+      jobject thiz,
+      jlong *s)
+  {
+    return (jint)JS_ParseTemplatePart((JSParseState *)s);
+  }
+
+  JNIEXPORT jlong JNICALL Java_QuickjsJni_jsGetParseStateTokenPtr(
+      JNIEnv *env,
+      jobject thiz,
+      jlong *s)
+  {
+    return (jlong)JS_GetParseStateTokenPtr((JSParseState *)s);
+  }
+
+  JNIEXPORT jlong JNICALL Java_QuickjsJni_jsGetParseStateBufPtr(
+      JNIEnv *env,
+      jobject thiz,
+      jlong *s)
+  {
+    return (jlong)JS_GetParseStateBufPtr((JSParseState *)s);
+  }
+
+  JNIEXPORT void JNICALL Java_QuickjsJni_jsSetParseStateBufPtr(
+      JNIEnv *env,
+      jobject thiz,
+      jlong *s,
+      jlong ptr)
+  {
+    JS_SetParseStateBufPtr((JSParseState *)s, (const uint8_t *)ptr);
+  }
+
+  JNIEXPORT jlong JNICALL Java_QuickjsJni_jsNewRuntime(
       JNIEnv *env,
       jobject thiz)
   {
     return (jlong)JS_NewRuntime();
   }
 
-  JNIEXPORT jlong JNICALL Java_Quickjs_jsNewContext(
+  JNIEXPORT jlong JNICALL Java_QuickjsJni_jsNewContext(
       JNIEnv *env,
       jobject thiz,
       jlong rt)
@@ -19,7 +94,7 @@ extern "C"
     return (jlong)JS_NewContext((JSRuntime *)rt);
   }
 
-  JNIEXPORT jlong JNICALL Java_Quickjs_jsEval(
+  JNIEXPORT jlong JNICALL Java_QuickjsJni_jsEval(
       JNIEnv *env,
       jobject thiz,
       jlong *ctx,
@@ -39,7 +114,7 @@ extern "C"
     return (jlong)ret;
   }
 
-  JNIEXPORT jstring JNICALL Java_Quickjs_jsToString(
+  JNIEXPORT jstring JNICALL Java_QuickjsJni_jsToString(
       JNIEnv *env,
       jobject thiz,
       jlong ctx,
@@ -51,7 +126,7 @@ extern "C"
     return jstr;
   }
 
-  JNIEXPORT void JNICALL Java_Quickjs_jsFreeValue(
+  JNIEXPORT void JNICALL Java_QuickjsJni_jsFreeValue(
       JNIEnv *env,
       jobject thiz,
       jlong ctx,
@@ -63,7 +138,7 @@ extern "C"
       delete (JSValue *)v;
   }
 
-  JNIEXPORT void JNICALL Java_Quickjs_jsFreeContext(
+  JNIEXPORT void JNICALL Java_QuickjsJni_jsFreeContext(
       JNIEnv *env,
       jobject thiz,
       jlong ctx)
@@ -71,7 +146,7 @@ extern "C"
     JS_FreeContext((JSContext *)ctx);
   }
 
-  JNIEXPORT void JNICALL Java_Quickjs_jsFreeRuntime(
+  JNIEXPORT void JNICALL Java_QuickjsJni_jsFreeRuntime(
       JNIEnv *env,
       jobject thiz,
       jlong rt)
