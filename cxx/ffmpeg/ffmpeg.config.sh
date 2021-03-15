@@ -72,8 +72,9 @@ case $1 in
       --cxx=$CC_PREFIX-clang++ \
       --cross-prefix=$CROSS_PREFIX \
       --enable-jni \
+      --disable-asm \
       --extra-cflags="-Os -fpic -DANDROID" \
-      --extra-ldflags="-Wl,-rpath-link=$MIN_PLATFORM/arch-arm/usr/lib -L$MIN_PLATFORM/arch-arm/usr/lib -nostdlib -fPIC"
+      --extra-ldflags="-Wl,-rpath-link=$MIN_PLATFORM/arch-arm/usr/lib -nostdlib -fPIC"
     sed -i "s/#define HAVE_INET_ATON 0/#define HAVE_INET_ATON 1/" config.h
     sed -i "s/#define getenv(x) NULL/\\/\\/ #define getenv(x) NULL/" config.h
     ;;

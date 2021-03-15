@@ -1,6 +1,6 @@
 [submodule "cxx/quickjs"]
-	path = cxx/quickjs
+	path = cxx/quickjs/quickjs
 	url = https://github.com/ekibun/quickjs.git
 [submodule "cxx/ffmpeg"]
-	path = cxx/ffmpeg
+	path = cxx/ffmpeg/ffmpeg
 	url = https://github.com/FFmpeg/FFmpeg.git

@@ -5,24 +5,24 @@ add_library(ffmpeg SHARED
   ${CMAKE_CURRENT_LIST_DIR}/ffmpeg.cpp
 )
 
-IF (ANDROID)
+if (ANDROID)
   set(FFMPEG_PATH "${CMAKE_CURRENT_LIST_DIR}/build/android_${CMAKE_ANDROID_ARCH}")
   set(ffmpeg-lib
     z
   )
-ENDIF ()
+endif ()
 
-IF (WIN32)
-  IF (CMAKE_VS_PLATFORM_NAME MATCHES "x64")
+if (WIN32)
+  if (CMAKE_VS_PLATFORM_NAME MATCHES "x64")
     set(FFMPEG_PATH "${CMAKE_CURRENT_LIST_DIR}/build/win32_x86_64")
-  ELSE()
+  else()
     set(FFMPEG_PATH "${CMAKE_CURRENT_LIST_DIR}/build/win32_x86")
-  ENDIF ()
+  endif ()
 
   set(ffmpeg-lib
     WindowsApp.lib
   )
-ENDIF ()
+endif ()
 
 target_include_directories(ffmpeg PRIVATE "${FFMPEG_PATH}/include")
 

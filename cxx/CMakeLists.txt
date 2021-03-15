@@ -1,16 +1,18 @@
 cmake_minimum_required(VERSION 3.7 FATAL_ERROR)
-set(CMAKE_BUILD_TYPE "Release")
-set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fPIC")
+project(nekojni)
 
-IF (ANDROID)
+set(CMAKE_BUILD_TYPE "Release")
+
+if (ANDROID)
   find_library(log-lib log)
-ELSE()
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fPIC")
+else()
   find_package(JNI REQUIRED)
   include_directories(${JAVA_INCLUDE_PATH})
   include_directories(${JAVA_INCLUDE_PATH2})
-ENDIF ()
+endif ()
 
 set(common-lib ${log-lib})
 
-include("${CMAKE_CURRENT_SOURCE_DIR}/quickjs.cmake")
-include("${CMAKE_CURRENT_SOURCE_DIR}/ffmpeg.cmake")
+add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/quickjs")
+add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/ffmpeg")
