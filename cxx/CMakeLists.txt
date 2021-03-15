@@ -14,5 +14,5 @@ endif ()
 
 set(common-lib ${log-lib})
 
-add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/quickjs")
-add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/ffmpeg")
+include("${CMAKE_CURRENT_SOURCE_DIR}/quickjs/CMakeLists.txt")
+include("${CMAKE_CURRENT_SOURCE_DIR}/ffmpeg/CMakeLists.txt")
