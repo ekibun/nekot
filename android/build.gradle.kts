@@ -12,11 +12,6 @@ android {
         targetSdkVersion(30)
         versionCode = 1
         versionName = "1.0"
-        externalNativeBuild {
-            cmake {
-                abiFilters = setOf("armeabi-v7a", "arm64-v8a")
-            }
-        }
     }
 
     compileOptions {
