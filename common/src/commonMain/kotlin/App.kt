@@ -1,8 +1,9 @@
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.Modifier
-import androidx.compose.foundation.layout.*
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun App() {
@@ -17,13 +18,14 @@ fun App() {
           onValueChange = {
             text = TextFieldValue(Hightlight.hightlight(it.text), it.selection, it.composition)
           },
-          modifier = Modifier.fillMaxWidth().fillMaxHeight(0.5f))
-      Button(onClick = {
-        evalval = quickjs.evaluate(text.text, "<eval>", 0)
-      }) { Text("Run") }
-      Text(evalval)
+          modifier = Modifier.fillMaxWidth().weight(1f))
+      Row {
+        Button(onClick = { evalval = quickjs.evaluate(text.text, "<eval>", 0) }) { Text("Run") }
+        Button(onClick = { evalval = "ffmpeg ctx=${ Ffmpeg().avformatAllocContext() }" }) {
+          Text("Test FFmpeg")
+        }
+      }
+      Text(text = evalval, modifier = Modifier.padding(10.dp).weight(1f))
     }
   }
 }
-
-expect fun getPlatformName(): String

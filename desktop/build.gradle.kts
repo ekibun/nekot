@@ -8,15 +8,16 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-tasks.create<Exec>("buildJniNativeWindows") {
+tasks.create<Exec>("buildJni") {
     group = "build"
   
     inputs.dir(rootDir.resolve("cxx"))
-    outputs.dir(projectDir.resolve(".cxx/Release"))
+    inputs.file(projectDir.resolve("build.jni.sh"))
+    outputs.dir(projectDir.resolve(".cxx/bin"))
   
     workingDir(projectDir)
-    executable = "cmd"
-    args("/C", "build-windows.cmd")
+    executable = "bash"
+    args("-c", "./build.jni.sh \\\"${org.gradle.internal.jvm.Jvm.current().javaHome}\\\"")
 }
 
 kotlin {
@@ -25,9 +26,8 @@ kotlin {
 
         val processResources = compilations["main"].processResourcesTaskName
         (tasks[processResources] as ProcessResources).apply {
-            onlyIf { currentOs.isWindows }
-            dependsOn("buildJniNativeWindows")
-            from(projectDir.resolve(".cxx/Release"))
+            dependsOn("buildJni")
+            from(projectDir.resolve(".cxx/bin"))
         }
     }
     sourceSets {
@@ -52,7 +52,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "KotlinMultiplatformComposeDesktopApplication"
+            packageName = "nekot"
             packageVersion = "1.0.0"
         }
     }

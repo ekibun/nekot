@@ -13,14 +13,15 @@ if (ANDROID)
 endif ()
 
 if (WIN32)
-  if (CMAKE_VS_PLATFORM_NAME MATCHES "x64")
+  if (WIN64)
     set(FFMPEG_PATH "${CMAKE_CURRENT_LIST_DIR}/build/win32_x86_64")
   else()
     set(FFMPEG_PATH "${CMAKE_CURRENT_LIST_DIR}/build/win32_x86")
   endif ()
-
+  
   set(ffmpeg-lib
-    WindowsApp.lib
+    ws2_32
+    bcrypt
   )
 endif ()
 
@@ -28,10 +29,10 @@ target_include_directories(ffmpeg PRIVATE "${FFMPEG_PATH}/include")
 
 target_link_libraries(ffmpeg PRIVATE
   ${common-lib}
-  ${ffmpeg-lib}
   "${FFMPEG_PATH}/lib/libavformat.a"
   "${FFMPEG_PATH}/lib/libavcodec.a"
   "${FFMPEG_PATH}/lib/libavutil.a"
   "${FFMPEG_PATH}/lib/libswresample.a"
   "${FFMPEG_PATH}/lib/libswscale.a"
+  ${ffmpeg-lib}
 )
